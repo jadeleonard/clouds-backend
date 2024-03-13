@@ -11,7 +11,7 @@ app.use(express.json());
 
 
 app.post('/api/createitems', async (req, res) => {
-    const { name price, details, seller, image } = req.body;
+    const { name, price, details, seller, image } = req.body;
     try {
         const response = await prisma.items.create({
             data: { name, price, details, seller, image }
