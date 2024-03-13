@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
 app.get('/api/navbar', async (req, res) => {
     try {
         // Assuming you want to return a JSON object with a key 'message' and value 'Hello, world!'
-        const responseObject = { message: 'Hello, world!' };
+        const responseObject = await prisma.navbar.findMany();
 
         // Send the JSON object as a response
         res.json(responseObject);
