@@ -7,6 +7,11 @@ const prisma = new PrismaClient();
 
 
 
+
+
+
+
+
 app.get('/api/navbar', async (req, res) => {
     try {
         // Assuming you want to return a JSON object with a key 'message' and value 'Hello, world!'

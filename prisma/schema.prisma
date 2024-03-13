@@ -49,6 +49,16 @@ model User {
   pets      Json
 }
 
+model items {
+  id          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name        String?  @db.VarChar(255)
+  description String?
+  price       Decimal? @db.Decimal(10, 2)
+  details     Json?
+  seller      String?  @db.VarChar(255)
+  image       String?  @db.VarChar(255)
+}
+
 model navbar {
   id      Int     @id @default(autoincrement())
   href    String? @db.VarChar(255)
