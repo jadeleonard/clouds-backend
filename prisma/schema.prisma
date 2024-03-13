@@ -54,7 +54,7 @@ model items {
   name        String?  @db.VarChar(255)
   description String?
   price       Decimal? @db.Decimal(10, 2)
-  details     Json?
+  details     String
   seller      String?  @db.VarChar(255)
   image       String?  @db.VarChar(255)
 }

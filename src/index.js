@@ -11,7 +11,14 @@ const prisma = new PrismaClient();
 
 
 
-
+app.post('/api/createItems',async (res,req) =>{
+    const {name,description,price,details,seller,image}
+    try {
+        const response = await prisma.items.create({})
+    } catch (error) {
+        
+    }
+})
 app.get('/api/navbar', async (req, res) => {
     try {
         // Assuming you want to return a JSON object with a key 'message' and value 'Hello, world!'
