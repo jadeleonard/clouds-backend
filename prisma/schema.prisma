@@ -7,36 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Bio {
-  id                Int    @id @default(autoincrement())
-  name              String
-  lastName          String
-  address           String
-  city              String
-  experience        String
-  education         String
-  expertise         String
-  awards            String
-  skills            String
-  extendedProfileId Int?
-}
 
-model ExtendedProfile {
-  id     Int  @id @default(autoincrement())
-  userId Int? @unique
-}
-
-model Post {
-  id             Int     @id @default(autoincrement())
-  title          String
-  published      Boolean @default(true)
-  authorId       Int
-  views          Int     @default(0)
-  likes          Int     @default(0)
-  interest       Json
-  jobDescription String
-  price          String
-}
 
 model User {
   id        Int       @id @default(autoincrement())
