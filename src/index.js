@@ -10,15 +10,44 @@ app.use(express.json());
 
 
 
-app.post('/api/createItems', async (req, res) => {
-    const { name, description, price, details, seller, image } = req.body;
+app.post('/api/createitems', async (req, res) => {
+    const { name price, details, seller, image } = req.body;
     try {
         const response = await prisma.items.create({
-            data: { name, description, price, details, seller, image }
+            data: { name, price, details, seller, image }
         });
         res.json(response);
     } catch (error) {
         console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+// Update an item
+app.put('/api/updateitem/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    const { name, description, price, details, seller, image } = req.body;
+    try {
+        const updatedItem = await prisma.items.update({
+            where: { id },
+            data: { name, description, price, details, seller, image }
+        });
+        res.json(updatedItem);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Delete an item
+app.delete('/api/deleteitem/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    try {
+        await prisma.items.delete({
+            where: { id }
+        });
+        res.json({ message: 'Item deleted successfully' });
+    } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
