@@ -51,8 +51,8 @@ model User {
 
 model navbar {
   id      Int     @id @default(autoincrement())
-  href    String? @db.VarChar(500)
-  content String? @db.VarChar(500)
+  href    String? @db.VarChar(255)
+  section String? @db.VarChar(255)
 }
 
 enum Role {
