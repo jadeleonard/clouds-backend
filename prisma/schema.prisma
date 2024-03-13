@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Bio {
+  id                Int    @id @default(autoincrement())
+  name              String
+  lastName          String
+  address           String
+  city              String
+  experience        String
+  education         String
+  expertise         String
+  awards            String
+  skills            String
+  extendedProfileId Int?
+}
+
+model ExtendedProfile {
+  id     Int  @id @default(autoincrement())
+  userId Int? @unique
+}
+
+model Post {
+  id             Int     @id @default(autoincrement())
+  title          String
+  published      Boolean @default(true)
+  authorId       Int
+  views          Int     @default(0)
+  likes          Int     @default(0)
+  interest       Json
+  jobDescription String
+  price          String
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String?
+  email     String    @unique
+  role      Role      @default(USER)
+  coinflips Boolean[]
+  city      String
+  country   String
+  pets      Json
+}
+
+model navbar {
+  id      Int     @id @default(autoincrement())
+  href    String? @db.VarChar(500)
+  content String? @db.VarChar(500)
+}
+
+enum Role {
+  USER
+  ADMIN
+}
