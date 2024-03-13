@@ -3,10 +3,9 @@ const app = express();
 const port = process.env.PORT || 3001;
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const cors = require('cors');
 
 
-app.use(cors());
+
 
 app.get('/api/navbar', async (req, res) => {
     try {
