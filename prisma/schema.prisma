@@ -13,19 +13,16 @@ model User {
   email     String    @unique
   role      Role      @default(USER)
   coinflips Boolean[]
-  city      String
-  country   String
-  pets      Json
+  address   String
 }
 
 model items {
-  id          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name        String?  @db.VarChar(255)
-  description String?
-  price       Decimal? @db.Decimal(10, 2)
-  details     String
-  seller      String?  @db.VarChar(255)
-  image       String?  @db.VarChar(255)
+  id      String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name    String?  @db.VarChar(255)
+  price   Decimal? @db.Decimal(10, 2)
+  details String
+  seller  String?  @db.VarChar(255)
+  image   String?  @db.VarChar(255)
 }
 
 model navbar {
