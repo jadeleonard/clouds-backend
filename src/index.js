@@ -17,15 +17,19 @@ app.use(express.json());
 app.use(cacheController());
 
 // Define routes
-app.get('/api/getitems', async (req, res) => {
+app.delete('/api/deleteitem/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
     try {
-        const response = await prisma.items.findMany();
-        res.json(response);
+        await prisma.items.delete({
+            where: { id }
+        });
+        res.json({ message: 'Item deleted successfully' });
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 
 app.post('/api/createitems', async (req, res) => {
     const { name, price, details, seller, image } = req.body;
