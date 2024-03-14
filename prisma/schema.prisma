@@ -27,15 +27,15 @@ model navbar {
 }
 
 model items {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   image       String
   description String
   price       Int
-  details     details[]
+  details     detailsphone[]
 }
 
-model details {
+model detailsphone {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   memory      String
   processor   String

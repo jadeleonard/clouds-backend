@@ -17,67 +17,19 @@ app.use(express.json());
 app.use(cacheController());
 
 // Define routes
-app.get('/api/getphone',async (res,req) =>{
+
+
+app.get('/api/navbar',async (res,req) =>{
     try {
-        const response = await prisma.phone.findMany();
+        const response = await prisma.navbar.findMany();
         if(response.ok){
             res.json(response)
+            console.log(response)
         }
     } catch (error) {
         console.log(error)
-      
     }
 })
-app.post('/api/createitems', async (req, res) => {
-    const { name, price, details, seller, image } = req.body;
-    try {
-        const response = await prisma.items.create({
-            data: { name, price, details, seller, image }
-        });
-        res.json(response);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-app.put('/api/updateitem/:id', async (req, res) => {
-    const id = parseInt(req.params.id);
-    const { name, description, price, details, seller, image } = req.body;
-    try {
-        const updatedItem = await prisma.items.update({
-            where: { id },
-            data: { name, description, price, details, seller, image }
-        });
-        res.json(updatedItem);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-app.delete('/api/deleteitem/:id', async (req, res) => {
-    const id = parseInt(req.params.id);
-    try {
-        await prisma.items.delete({
-            where: { id }
-        });
-        res.json({ message: 'Item deleted successfully' });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-app.get('/api/navbar', async (req, res) => {
-    try {
-        const navbarItems = await prisma.navbar.findMany();
-        res.json(navbarItems);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
 
 app.get('/', (req, res) => {
     res.send('Welcome to my Express server!');
