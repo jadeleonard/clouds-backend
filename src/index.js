@@ -4,10 +4,10 @@ const port = process.env.PORT || 3001;
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const cacheController = require('express-cache-controller');
+const cors = require('cors');
 
 
-
-
+app.use(cors());
 
 
 
@@ -25,7 +25,7 @@ app.get('/api/getphone',async (res,req) =>{
         }
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error: 'Internal Server Error' });
+      
     }
 })
 app.post('/api/createitems', async (req, res) => {
