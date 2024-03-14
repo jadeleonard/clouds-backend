@@ -5,15 +5,26 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+
+  relationMode = "foreignKeys"
+}
+
+model mykart {
+  id     String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  values Int
+  owner  User[]
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  name      String?
-  email     String    @unique
-  role      Role      @default(USER)
-  coinflips Boolean[]
-  address   String
+  id    Int     @id @default(autoincrement())
+  name  String?
+  email String  @unique
+  role  Role    @default(USER)
+
+  address String
+
+  mykart   mykart? @relation(fields: [mykartId], references: [id])
+  mykartId String? @db.Uuid
 }
 
 model items {
@@ -23,6 +34,58 @@ model items {
   details String
   seller  String?  @db.VarChar(255)
   image   String?  @db.VarChar(255)
+}
+
+model phone {
+  id            String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name          String
+  price         Decimal?     @db.Decimal(10, 2)
+  details       String
+  seller        String
+  image         String
+  electronics   electronics? @relation(fields: [electronicsId], references: [id])
+  electronicsId String?      @db.Uuid
+}
+
+model desktop {
+  id            String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name          String
+  price         Decimal?     @db.Decimal(10, 2)
+  details       String
+  seller        String
+  image         String
+  electronics   electronics? @relation(fields: [electronicsId], references: [id])
+  electronicsId String?      @db.Uuid
+}
+
+model tablet {
+  id            String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name          String
+  price         Decimal?     @db.Decimal(10, 2)
+  details       String
+  seller        String
+  image         String
+  electronics   electronics? @relation(fields: [electronicsId], references: [id])
+  electronicsId String?      @db.Uuid
+}
+
+model console {
+  id            String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name          String
+  price         Decimal?     @db.Decimal(10, 2)
+  details       String
+  seller        String
+  image         String
+  electronics   electronics? @relation(fields: [electronicsId], references: [id])
+  electronicsId String?      @db.Uuid
+}
+
+model electronics {
+  id      String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  phones  phone[] // Define the relation to phones
+  desktop desktop[]
+  tablet  tablet[]
+  console console[]
 }
 
 model navbar {
