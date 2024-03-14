@@ -24,7 +24,6 @@ app.get('/api/navbar',async (res,req) =>{
         const response = await prisma.navbar.findMany();
         if(response.ok){
             res.json(response)
-            console.log(response)
         }
     } catch (error) {
         console.log(error)
