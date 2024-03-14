@@ -80,12 +80,72 @@ model console {
   electronicsId String?      @db.Uuid
 }
 
+model mensclothes {
+  id      String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name    String
+  price   Decimal? @db.Decimal(10, 2)
+  details String
+  seller  String
+  image   String
+
+  clothing   clothing? @relation(fields: [clothingId], references: [id])
+  clothingId String?   @db.Uuid
+}
+
+model womenclothes {
+  id      String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name    String
+  price   Decimal? @db.Decimal(10, 2)
+  details String
+  seller  String
+  image   String
+
+  clothing   clothing? @relation(fields: [clothingId], references: [id])
+  clothingId String?   @db.Uuid
+}
+
+model babyclothes {
+  id      String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name    String
+  price   Decimal? @db.Decimal(10, 2)
+  details String
+  seller  String
+  image   String
+
+  clothing   clothing? @relation(fields: [clothingId], references: [id])
+  clothingId String?   @db.Uuid
+}
+
+model clothing {
+  id             String         @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  mensclothing   mensclothes[]
+  womensclothing womenclothes[]
+  babyclothes    babyclothes[]
+  categories     categories?    @relation(fields: [categoriesId], references: [id])
+  categoriesId   Int?
+}
+
 model electronics {
-  id      String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  phones  phone[] // Define the relation to phones
-  desktop desktop[]
-  tablet  tablet[]
-  console console[]
+  id           String      @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  phones       phone[] // Define the relation to phones
+  desktop      desktop[]
+  tablet       tablet[]
+  console      console[]
+  categories   categories? @relation(fields: [categoriesId], references: [id])
+  categoriesId Int?
+}
+
+model categories {
+  id          Int           @id @default(autoincrement())
+  electronics electronics[]
+  clothing    clothing[]
+  post        post?         @relation(fields: [postId], references: [id])
+  postId      Int?
+}
+
+model post {
+  id         Int          @id @default(autoincrement())
+  categories categories[]
 }
 
 model navbar {
