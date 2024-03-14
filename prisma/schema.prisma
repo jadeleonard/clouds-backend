@@ -2,16 +2,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
-
-
-
-
-
-
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider     = "mongodb"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
@@ -34,11 +27,23 @@ model navbar {
 }
 
 model items {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   image       String
   description String
   price       Int
+  details     details[]
+}
+
+model details {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  memory      String
+  processor   String
+  display     String
+  battery     String
+  motherboard String
+  items       items?  @relation(fields: [itemsId], references: [id])
+  itemsId     String? @db.ObjectId
 }
 
 model user {
