@@ -9,7 +9,15 @@ app.use(express.json());
 
 
 
-
+app.get('/api/getitems', async (req, res) => {
+    try {
+        const response = await prisma.items.findMany();
+        res.json(response);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 app.post('/api/createitems', async (req, res) => {
     const { name, price, details, seller, image } = req.body;
     try {
