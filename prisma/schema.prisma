@@ -28,12 +28,8 @@ model User {
 }
 
 model items {
-  id      String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name    String?  @db.VarChar(255)
-  price   Decimal? @db.Decimal(10, 2)
-  details String
-  seller  String?  @db.VarChar(255)
-  image   String?  @db.VarChar(255)
+  id   String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name categories[]
 }
 
 model phone {
@@ -141,6 +137,8 @@ model categories {
   clothing    clothing[]
   post        post?         @relation(fields: [postId], references: [id])
   postId      Int?
+  items       items?        @relation(fields: [itemsId], references: [id])
+  itemsId     String?       @db.Uuid
 }
 
 model post {

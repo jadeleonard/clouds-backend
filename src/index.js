@@ -5,6 +5,13 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const cacheController = require('express-cache-controller');
 
+
+
+
+
+
+
+
 // Middleware to parse JSON bodies
 app.use(express.json());
 app.use(cacheController());
