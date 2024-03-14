@@ -17,34 +17,17 @@ app.use(express.json());
 app.use(cacheController());
 
 // Define routes
-app.get('/api/getitems', async (req, res) => {
+app.get('/api/getitem',async (res,req) =>{
     try {
-        const response = await prisma.items.findMany({
-            include: {
-                categories: true
-            }
-        });
-        res.json(response);
+        const response = await prisma.phone.findMany();
+        if(response.ok){
+            res.json(response)
+        }
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(500).json({ error: 'Internal Server Error' });
     }
-});
-app.get('/api/getitems', async (req, res) => {
-    try {
-        // Retrieve items from the database using Prisma
-        const items = await prisma.items.findMany(
-       
-        );
-
-        // Send the retrieved items as a response
-        res.json(items);
-    } catch (error) {
-        // Handle errors
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+})
 app.post('/api/createitems', async (req, res) => {
     const { name, price, details, seller, image } = req.body;
     try {
