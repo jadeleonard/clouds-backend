@@ -30,7 +30,21 @@ app.get('/api/getitems', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+app.get('/api/getitems', async (req, res) => {
+    try {
+        // Retrieve items from the database using Prisma
+        const items = await prisma.items.findMany(
+       
+        );
 
+        // Send the retrieved items as a response
+        res.json(items);
+    } catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 app.post('/api/createitems', async (req, res) => {
     const { name, price, details, seller, image } = req.body;
     try {
