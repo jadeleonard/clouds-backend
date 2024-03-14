@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cacheController());
 
 // Define routes
-app.get('/api/getitem',async (res,req) =>{
+app.get('/api/getphone',async (res,req) =>{
     try {
         const response = await prisma.phone.findMany();
         if(response.ok){
