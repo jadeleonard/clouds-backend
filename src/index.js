@@ -3,12 +3,13 @@ const app = express();
 const port = process.env.PORT || 3001;
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const cacheController = require('express-cache-controller');
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+app.use(cacheController());
 
-
-
+// Define routes
 app.get('/api/getitems', async (req, res) => {
     try {
         const response = await prisma.items.findMany();
@@ -18,6 +19,7 @@ app.get('/api/getitems', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 app.post('/api/createitems', async (req, res) => {
     const { name, price, details, seller, image } = req.body;
     try {
@@ -30,7 +32,7 @@ app.post('/api/createitems', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-// Update an item
+
 app.put('/api/updateitem/:id', async (req, res) => {
     const id = parseInt(req.params.id);
     const { name, description, price, details, seller, image } = req.body;
@@ -46,7 +48,6 @@ app.put('/api/updateitem/:id', async (req, res) => {
     }
 });
 
-// Delete an item
 app.delete('/api/deleteitem/:id', async (req, res) => {
     const id = parseInt(req.params.id);
     try {

@@ -13,6 +13,7 @@
     "@prisma/client": "^5.11.0",
     "cors": "^2.8.5",
     "express": "^4.18.3",
+    "express-cache-controller": "^1.1.0",
     "memory-cache": "^0.2.0",
     "nodemon": "^3.1.0",
     "prisma": "^5.11.0"
