@@ -2,9 +2,17 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
+
+
+
+
+
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model faq {
@@ -23,6 +31,14 @@ model navbar {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   href String
   name String
+}
+
+model items {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  image       String
+  description String
+  price       Int
 }
 
 model user {
