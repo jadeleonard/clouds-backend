@@ -3,54 +3,48 @@ generator client {
 }
 
 datasource db {
-  provider     = "mongodb"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model faq {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  description String
-  title       String
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String?
+  email    String  @unique
+  role     Role    @default(USER)
+  address  String
+  mykartId String? @db.Uuid
+  mykart   mykart? @relation(fields: [mykartId], references: [id])
 }
 
-model hero {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  description String
-  title       String
-}
-
-model navbar {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  href String
-  name String
+model carousel {
+  id    String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name  String? @db.VarChar(255)
+  image String? @db.VarChar(255)
 }
 
 model items {
-  id          String         @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  image       String
-  description String
-  price       Int
-  details     detailsphone[]
+  id          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name        String?  @db.VarChar(255)
+  description String?
+  price       Decimal? @db.Decimal(10, 2)
+  seller      String?  @db.VarChar(255)
+  image       String?  @db.VarChar(255)
 }
 
-model detailsphone {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  memory      String
-  processor   String
-  display     String
-  battery     String
-  motherboard String
-  items       items?  @relation(fields: [itemsId], references: [id])
-  itemsId     String? @db.ObjectId
+model mykart {
+  id     String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  values Int
+  User   User[]
 }
 
-model user {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  address  String
-  email    String
-  lastname String
-  name     String
-  password String
+model navbar {
+  id      Int     @id @default(autoincrement())
+  href    String? @db.VarChar(255)
+  section String? @db.VarChar(255)
+}
+
+enum Role {
+  USER
+  ADMIN
 }
