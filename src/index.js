@@ -29,9 +29,13 @@ app.get('/api/navbar',async (res,req) =>{
         console.log(error)
     }
 })
-
+const data = [
+    {"title":"Official backend of cloud"},
+    {"api":"https://clouds-backend.onrender.com"},
+    {"navbar":"https://clouds-backend.onrender.com/api/navbar"}
+]
 app.get('/', (req, res) => {
-    res.send('Welcome to my Express server!');
+    res.send(data);
 });
 
 const server = app.listen(port, () => {
