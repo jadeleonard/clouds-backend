@@ -38,6 +38,10 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'https://cloud-mount-3y2nneodq-lukabartos-projects.vercel.app'); 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE','get','post','delete'); // Allow specific HTTP methods
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specific headers
+    res.setHeader('Access-Control-Allow-Headers', `https://vercel-cloud-backend-git-main-lukabartos-projects.vercel.app/navbar`);
+    res.setHeader('Access-Control-Allow-Headers', `https://vercel-cloud-backend-git-main-lukabartos-projects.vercel.app/getitems`);
+    res.setHeader('Access-Control-Allow-Headers', `https://vercel-cloud-backend-git-main-lukabartos-projects.vercel.app/`);
+    res.setHeader('Access-Control-Allow-Headers', `https://vercel-cloud-backend-git-main-lukabartos-projects.vercel.app/navbar`);
     next();
   });
   
