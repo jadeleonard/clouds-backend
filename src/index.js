@@ -30,6 +30,17 @@ app.get('/api/navbar',async (res,req) =>{
     }
     
 });
+
+app.get('/api/shoes',async (res,req) =>{
+    try {
+        const response = await prisma.shoes.findMany();
+        if(response.ok){
+            res.json(response)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+})
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // Set the origin to your frontend URL
 
